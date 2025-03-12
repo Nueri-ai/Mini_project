@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: iris-deployment
+  name: fin-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: iris
+      app: fin-model
   template:
     metadata:
       labels:
-        app: iris
+        app: fin-model
     spec:
       imagePullSecrets:
       - name: regcred
       containers:
-      - name: iris-prediction
+      - name: fin-model-prediction
         image: artmakar/iris-prediction:latest
         ports:
         - containerPort: 5000

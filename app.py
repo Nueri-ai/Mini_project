@@ -5,7 +5,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Загрузка модели
-my_model = joblib.load('fin_model!.joblib')
+my_model = joblib.load('fin_model.joblib')
 
 
 @app.route('/predict', methods=['POST'])
