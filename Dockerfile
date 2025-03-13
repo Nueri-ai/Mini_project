@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Копируем все файлы в контейнер
 COPY . /app
-COPY fin_model.joblib
+COPY fin_model.joblib .
 
 # Устанавливаем зависимости из requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
