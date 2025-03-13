@@ -1,4 +1,4 @@
-Адаптировала deployment.yaml, service.yaml, app.py под свою модель;
+Адаптировала deployment.yaml, service.yaml, app.py и докер файл под свою модель;
 
 Основная трудность была в установке minikube;
 
