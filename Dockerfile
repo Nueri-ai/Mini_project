@@ -3,7 +3,7 @@ FROM python:3.12
 WORKDIR /app
 
 # Копируем все файлы в контейнер
-COPY . /app
+COPY . /appdocker
 COPY fin_model.joblib .
 
 # Устанавливаем зависимости из requirements.txt
