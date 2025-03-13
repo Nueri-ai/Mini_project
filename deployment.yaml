@@ -13,7 +13,7 @@ spec:
         app: fin-model
     spec:
       imagePullSecrets:
-      - name: regcred
+      - name: seccred
       containers:
       - name: fin-model-prediction
         image: nueri/fin-pred:latest
