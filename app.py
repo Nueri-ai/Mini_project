@@ -5,25 +5,18 @@ import numpy as np
 app = Flask(__name__)
 
 # Загрузка модели
-my_model = joblib.load('fin_model.joblib')
+fin_model = joblib.load('iris_model.joblib')
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.json
-    features = np.array([data['AtBat'],
-                         data['Hits'],
-                         data['Runs'],
-                         data['Walks'],
-                         data['Years'],
-                         data['CRBIxCRuns'],
-                         data['PutOuts'],
-                         data['CRBI'],
-                         data['CRuns'],
-                         data['CAtBat'],
-                         ]).reshape(1, -1)
+    features = np.array([data['sepal_length'],
+                         data['sepal_width'],
+                         data['petal_length'],
+                         data['petal_width']]).reshape(1, -1)
 
-    prediction = my_model.predict(features).tolist()
+    prediction = fin_model.predict(features).tolist()
     return jsonify({'class': prediction[0]})
 
 
