@@ -14,4 +14,6 @@ with DAG(
     default_args=default_args,
     schedule_interval ='@weekly'
 ) as dag:
-    train_task = PythonOperator
+    train_task = PythonOperator(
+        task_id=
+    )
