@@ -6,9 +6,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import load_iris
-import joblib
 
-mlflow.set_tracking_uri('http://localhost:500')
+mlflow.set_tracking_uri('http://localhost:5000')
 
 def train_log_model(n_estimators, max_depth):
     iris = load_iris()
@@ -26,8 +25,10 @@ def train_log_model(n_estimators, max_depth):
 
         run_id = mlflow.active_run().info.run_id
 
-        model_url = f"runs://{run_id}/fin_model-app"
-        registered_model = mlflow.register_model(model_url, "FinApp")
+        mlflow.sklearn.log_model(model, "fin-app")
+        model_uri = f"runs:/{run_id}/fin-app"
+
+        registered_model = mlflow.register_model(model_uri, "FinApp")
 
         client = MlflowClient()
         client.set_model_version_tag(
@@ -39,6 +40,7 @@ def train_log_model(n_estimators, max_depth):
 def promote_best_model(model_name):
     client = MlflowClient()
     best_accuracy = 0
+    best_version =None
     for version in client.search_model_versions(f"name:{model_name}"):
         tmp_accuracy = version.tags.get("accuracy")
         if tmp_accuracy:
@@ -54,11 +56,12 @@ def promote_best_model(model_name):
             stage="Production"
         )
 
-if __name__=="main":
-    train_log_model(100, 5)
-    train_log_model(200, 100)
-    train_log_model(500, None)
+if __name__=="__main__":
+    train_log_model(50, 5)
+    train_log_model(100, 80)
+    train_log_model(400, None)
 
+    promote_best_model('FinApp')
 
 
 
